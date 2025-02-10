@@ -4,7 +4,7 @@
 
 ## R Version: 4.3.2 
 
-## Purpose: HETEROGENEITY ANALYSIS FOR BYLC PROJECT
+## Purpose: HETEROGENEITY ANALYSIS USING CAUSAL FORESTS
 
 ## Brief Project Description: 
 # The aim of the project is to evaluate the impact of a soft-skills training program
