@@ -1,26 +1,26 @@
 /******************************************************************************
-
-Stata Version 18.0
-
-Purpose: Data Cleaning, Analysis and Visualization
-
 Author: Anudhii Sundaram 
 
 Date Created: January 22, 2025
 Date Modified: January 30, 2025
 
+Stata Version 18.0
+
+Purpose: Data Cleaning, Analysis and Visualization
+
 Project Description: 
-The aim of the project is to study a large-scale randomized controlled trial that  provided a universal cash transfer of USD 416 (MWK 701,000) to around 70,000
-individuals over the course of 12 months in Malawi. Rollout was randomized across 
-Group Village Headman geographic clusters (GVHs). The study leverages the randomization in the timing of the receipt of the cash transfer. 
+The aim of the project is to study a large-scale randomized controlled trial that  provided a universal cash transfer 
+of USD 416 (MWK 701,000) to around 70,000 individuals over the course of 12 months in Malawi. Rollout was randomized 
+across Group Village Headman geographic clusters (GVHs). The study leverages the randomization in the timing of the
+receipt of the cash transfer. 
 
 Brief Description of Data: 
-Study uses a panel data set which covers information on household outcomes across 8 waves. This includes two baseline surveys and six follow-up surveys.  
+Study uses a panel data set which covers information on household outcomes across 8 waves. This includes two baseline 
+surveys and six follow-up surveys.  
 
 Brief Description of Variables: 
-In this script, the outcomes of interest are household consumption and spending. 
-Since it is a rollout RCT, the study leverages randomization in the timing of the 
-receipt of the transfers to identify the effect of treatment. 
+In this script, the outcomes of interest are household consumption and spending. Since it is a rollout RCT, the study 
+leverages randomization in the timing of the receipt of the transfers to identify the effect of treatment. 
 
 This script contains the following sections:
 *** Section 1: Data Cleaning
@@ -40,7 +40,7 @@ set maxvar 30000
 
 
 ********************************************************************************
-*************************** GLOBAL DIRECTORY *********************************** ********************************************************************************
+*************************** GLOBAL DIRECTORY *********************************** 
 
 display "`c(username)'" // Displays the username of your computer 
 
