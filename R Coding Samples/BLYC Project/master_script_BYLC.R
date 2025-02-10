@@ -182,7 +182,7 @@ cf_analysis <- function(data, outcome_var, treatment_var = "treatment",
   
   # Generate the histogram
   hist(tau_hat, main = paste("Histogram of out-of-bag ATE estimates for", rename_outcome(outcome_var)), 
-       xlab = "Estimated CATT")
+       xlab = "Estimated CATE")
   
   # Close the graphics device
   dev.off()
@@ -352,7 +352,7 @@ heterogeneity_vars <- c("female", "public_educ_inst", "dhaka", "parent_working",
 # Apply the causal forest analysis function
 cf_results <- cf_analysis(
   data = survey_data,
-  cluster_var = cluster_var,
+  outcome_var = outcome_var,
   control_vars = control_vars,
   heterogeneity_vars = heterogeneity_vars
 )
