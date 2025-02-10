@@ -183,8 +183,9 @@ max(cw_ndc_data$normalized_ndc)
 # Merge NDC data with world map data using country ISO code
 world_map_sf <- joinCountryData2Map(cw_ndc_data, joinCode = "ISO3", nameJoinColumn = "ISO")
 
-# Define a custom color palette from red (low) to green (high)
-red_to_green <- colorRampPalette(c("red", "green"))
+# Define a custom color palette from purple (low) to yellow (high)
+purple_to_yellow <- colorRampPalette(c("purple", "yellow"))
+
 # Define breaks
 breaks <- c(0, 0.2, 0.4, 0.6, 0.8, 1)     
 
@@ -196,7 +197,7 @@ jpeg(world_filename, pointsize = 12, width=1900, height=1500, res=200)
 
 # Generate the Map
 mapCountryData(world_map_sf, nameColumnToPlot = "normalized_ndc", catMethod = "fixedWidth",
-               numCats = 5,  colourPalette = red_to_green(length(breaks) - 1),
+               numCats = 5,  colourPalette = purple_to_yellow(length(breaks) - 1),
                mapTitle = "Variation in Normalized NDC Scores across countries", 
                addLegend = TRUE, missingCountryCol = "gray")
 
@@ -217,6 +218,9 @@ africa_map_sf <- world_map_sf[world_map_sf$ISO3 %in% africa_iso3, ]
 
 # Define file path for saving the heatmap
 africa_filename <- file.path(plots_wd, "africa_map_ndc.jpeg")
+
+# Define a custom color palette from purple (red) to green (high)
+red_to_green <- colorRampPalette(c("red", "green"))
 
 # Adjust the width, height and resolution of the jpeg file
 jpeg(africa_filename, pointsize = 12, width=1900, height=1500, res=200)
