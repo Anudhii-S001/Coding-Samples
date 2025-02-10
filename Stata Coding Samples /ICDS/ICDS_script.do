@@ -1,25 +1,40 @@
 /*******************************************************************************
-
-Stata Version 18.0
-
-Purpose: Data Cleaning, Analysis and Visulization 
-
 Author: Anudhii Sundaram 
 
 Date Created: Jan 20, 2024
 Date Modified: May 15, 2024
 
+Stata Version 18.0
+
+Purpose: Data Cleaning, Analysis and Visulization 
+
 Project Description: 
-The project aims to examine the impact of an early childhood development program - 'Integrated Child Development Services' - in India on pre-adolescent learning outcomes using data from the Indian Human Development Survey. The focus is particularly on the heterogeneity in treatment effects to target the intervention to subgroups that benefit the most from it. 
+The project aims to examine the impact of an early childhood development program - 'Integrated Child 
+Development Services' - in India on pre-adolescent learning outcomes using data from the Indian Human 
+Development Survey. The focus is particularly on the heterogeneity in treatment effects to target the 
+intervention to subgroups that benefit the most from it. 
 
 Brief description of ICDS: 
-In 1975, the Government of India initiated the Integrated Child Development Services (ICDS) scheme. It offers nutritional support, health assessments, referral services, immunizations, and non-formal preschool education to children aged 0 to 6 years. 
+In 1975, the Government of India initiated the Integrated Child Development Services (ICDS) scheme. 
+It offers nutritional support, health assessments, referral services, immunizations, and non-formal 
+preschool education to children aged 0 to 6 years. 
 
 Brief description of the Indian Human Development Survey: 
-IHDS is a nation-wide survey encompassing both rural and urban regions, comprising over 1,500 villages, 970 urban blocks and over 41,000 households. The survey includes a diverse range of questions on topics such as healthcare, education, employment, marriage, and gender relations. IHDS encompasses two waves: the first wave of survey was held in 2004–05 and the second wave was conducted in 2011–12. In the second wave, about 85 per cent of the households from the first wave were re-interviewed. 
+IHDS is a nation-wide survey encompassing both rural and urban regions, comprising over 1,500 villages,
+970 urban blocks and over 41,000 households. The survey includes a diverse range of questions on topics
+such as healthcare, education, employment, marriage, and gender relations. IHDS encompasses two waves: 
+the first wave of survey was held in 2004–05 and the second wave was conducted in 2011–12. In the second 
+wave, about 85 per cent of the households from the first wave were re-interviewed. 
 
 Brief description of Data used for analysis: 
-For the purpose of this study, three datasets from both the waves of IHDS were combined using a common variable `household ID' to obtain a panel data set consisting of data from both the waves. The sample is restricted to include only those children whose households were part of the first wave of survey and then re-interviewed in the second wave. The information about whether a child received any ICDS intervention is obtained from the eligible woman in the household in the first wave and is matched with the learning outcomes of children in the second wave. The final dataset is a panel, comprising relevant variables from both the waves of the survey. However, the study is cross-sectional since the learning outcomes of children are only recorded in the second wave.
+For the purpose of this study, three datasets from both the waves of IHDS were combined using a common 
+variable `household ID' to obtain a panel data set consisting of data from both the waves. The sample is
+restricted to include only those children whose households were part of the first wave of survey and then
+re-interviewed in the second wave. The information about whether a child received any ICDS intervention is 
+obtained from the eligible woman in the household in the first wave and is matched with the learning outcomes
+of children in the second wave. The final dataset is a panel, comprising relevant variables from both the waves
+of the survey. However, the study is cross-sectional since the learning outcomes of children are only recorded 
+in the second wave.
 
 Brief description of Variables: 
 Outcomes: Standardized Reading and Math Scores of children
@@ -45,7 +60,7 @@ set maxvar 30000
 
 
 ********************************************************************************
-*************************** GLOBAL DIRECTORY *********************************** ********************************************************************************
+*************************** GLOBAL DIRECTORY *********************************** 
 
 display "`c(username)'" // Displays the username of your computer 
 
@@ -215,8 +230,8 @@ recode       STATEID (1 = 1 "Jammu & Kashmir") (2 = 2 "Himachal Pradesh") (3 = 3
                      (21 = 12 "Orissa") (22 = 13 "Chhattisgarh") (23 = 14 "Madhya Pradesh") (24 = 15 "Gujarat") ///
                      (27 = 16 "Maharashtra") (28 = 17 "Andhra Pradesh") (29 = 18 "Karnataka") (30 = 19 "Goa") ///
                      (32 = 20 "Kerala") (33 = 21 "Tamil Nadu") (4 = 22 "Union Territories") (7 = 22 "Union Territories") ///
-					 (25 = 22 "Union Territories") (26 = 22 "Union Territories") (31 = 22 "Union Territories") ///
-					 (34 = 22 "Union Territories") (35 = 22 "Union Territories"), gen(stateid)
+		     (25 = 22 "Union Territories") (26 = 22 "Union Territories") (31 = 22 "Union Territories") ///
+		     (34 = 22 "Union Territories") (35 = 22 "Union Territories"), gen(stateid)
 					
 order        stateid         // Move the variable to the beginning of the data set
 
@@ -230,9 +245,9 @@ drop         XLB49A1 XLB49B1 XLB49C1 XLB49D1 XLB49E1 TA8B TA9B XCOTOTAL XRO3 XFA
 
 * Rename remaining variables 
 rename      (XWA5A  XFU1 XFU2 XURBAN XEW6 XEW8 XEW9 XSPED6 XRO5 XPOOR RO5 CS14Y) ///
-        	(hh_water_avail hh_electricity_avail hh_meals_perday hh_urban mother_age ///
-			 mother_educ mother_surviving_children father_educ child_age_wave1 hh_poor ///
-			 child_age_wave2 midday_meal)	  
+            (hh_water_avail hh_electricity_avail hh_meals_perday hh_urban mother_age ///
+             mother_educ mother_surviving_children father_educ child_age_wave1 hh_poor ///
+	     child_age_wave2 midday_meal)	  
 		  
 * Convert all variable names into lowercase  		  
 rename       *, lower	
@@ -544,8 +559,9 @@ use         "$data/merged_cleaned_dataset.dta", clear
  
 /*
 Note: 
-Adjust the global controls defined above accordingly before running regressions for different variables under heterogeneity analysis. For example, in the first case, we remove child_sex from global controls before running the regression models. We add the variable back
-while running other regressions. 
+Adjust the global controls defined above accordingly before running regressions for different variables under 
+heterogeneity analysis. For example, in the first case, we remove child_sex from global controls before running 
+the regression models. We add the variable back while running other regressions. 
 */
 
 * Update global controls for the regression to avoid collinearity issues
@@ -651,51 +667,51 @@ estimates     store math_model_econstatus
 * Output LaTeX table with results for Standardized Reading Score
 esttab        reading_model_childsex reading_model_schooltype  reading_model_urban /// List the regression models
               reading_model_caste reading_model_econstatus using "$tables/hte_reading_results.tex", replace ///
- 	          star(* 0.10 ** 0.05 *** 0.01) /// Add signficance stars to coefficients
+ 	      star(* 0.10 ** 0.05 *** 0.01) /// Add signficance stars to coefficients
               prehead(" \begin{tabular}{l c c c c c} \toprule & \multicolumn{5}{c}{\specialcell{Standardized Reading Score}} \\\midrule") /// Customize table header in Latex
-		      mtitles("(1)" "(2)" "(3)" "(4)" "(5)") /// Add titles for model columns 
-	          fragment nonumbers nolines noobs label /// Adjust specifications to customize table 
+	      mtitles("(1)" "(2)" "(3)" "(4)" "(5)") /// Add titles for model columns 
+	      fragment nonumbers nolines noobs label /// Adjust specifications to customize table 
               cells(b(fmt(3) star) se(par fmt(3) )) /// Format coefficients and standard errors with 3 decimal places
-		      collabels(none) /// 
+	      collabels(none) /// 
               keep(1.icds_treatment 1.icds_treatment#1.child_sex 1.icds_treatment#1.school_type ///
-		      1.icds_treatment#2.school_type 1.icds_treatment#0.hh_urban 1.icds_treatment#1.hh_caste ///
-		      1.icds_treatment#2.hh_caste 1.icds_treatment#1.hh_economic_status) /// Keep only the specified terms in the table
-		      varlabels(1.icds_treatment "Received ICDS intervention (Treatment)" /// Add labels to terms
-	                    1.icds_treatment#1.child_sex "Treatment x Child's Sex = Female" ///
-					    1.icds_treatment#1.school_type "Treatment x School Type = Public" ///
-					    1.icds_treatment#2.school_type "Treatment x School Type = Private" ///
-					    1.icds_treatment#0.hh_urban "Treatment x Household Residence = Rural" ///
-					    1.icds_treatment#1.hh_caste "Treatment x Household Caste = Forward" ///
-					    1.icds_treatment#2.hh_caste "Treatment x Household Caste = Backward" ///
-					    1.icds_treatment#1.hh_economic_status "Treatment x Household Economic Status = Low") ///
-		      stats(blank N r2, fmt(%9.0g %9.4f) /// Add additional statistics and labels
-		      labels(\hline "Number of Observations" "R-squared")) /// 
-              postfoot("\bottomrule \end{tabular} ") // Add footer at the bottom of the table and close the table
+		   1.icds_treatment#2.school_type 1.icds_treatment#0.hh_urban 1.icds_treatment#1.hh_caste ///
+		   1.icds_treatment#2.hh_caste 1.icds_treatment#1.hh_economic_status) /// Keep only the specified terms in the table
+	      varlabels(1.icds_treatment "Received ICDS intervention (Treatment)" /// Add labels to terms
+	                1.icds_treatment#1.child_sex "Treatment x Child's Sex = Female" ///
+			1.icds_treatment#1.school_type "Treatment x School Type = Public" ///
+			1.icds_treatment#2.school_type "Treatment x School Type = Private" ///
+			1.icds_treatment#0.hh_urban "Treatment x Household Residence = Rural" ///
+			1.icds_treatment#1.hh_caste "Treatment x Household Caste = Forward" ///
+			1.icds_treatment#2.hh_caste "Treatment x Household Caste = Backward" ///
+			1.icds_treatment#1.hh_economic_status "Treatment x Household Economic Status = Low") ///
+		stats(blank N r2, fmt(%9.0g %9.4f) /// Add additional statistics and labels
+		labels(\hline "Number of Observations" "R-squared")) /// 
+                postfoot("\bottomrule \end{tabular} ") // Add footer at the bottom of the table and close the table
 
 
 * Output LaTeX table with results for Standardized Math Score
 esttab        math_model_childsex math_model_schooltype  math_model_urban /// List the regression models
               math_model_caste math_model_econstatus using "$tables/hte_math_results.tex", replace ///
- 	          star(* 0.10 ** 0.05 *** 0.01) /// Add signficance stars to coefficients
+ 	      star(* 0.10 ** 0.05 *** 0.01) /// Add signficance stars to coefficients
               prehead(" \begin{tabular}{l c c c c c} \toprule & \multicolumn{5}{c}{\specialcell{Standardized Math Score}} \\\midrule") /// Customize table header in Latex
-		      mtitles("(1)" "(2)" "(3)" "(4)" "(5)") /// Add titles for model columns 
-	          fragment nonumbers nolines noobs label /// Adjust specifications to customize table 
+	      mtitles("(1)" "(2)" "(3)" "(4)" "(5)") /// Add titles for model columns 
+	      fragment nonumbers nolines noobs label /// Adjust specifications to customize table 
               cells(b(fmt(3) star) se(par fmt(3) )) /// Format coefficients and standard errors with 3 decimal places
-		      collabels(none) /// 
+	      collabels(none) /// 
               keep(1.icds_treatment 1.icds_treatment#1.child_sex 1.icds_treatment#1.school_type ///
-		      1.icds_treatment#2.school_type 1.icds_treatment#0.hh_urban 1.icds_treatment#1.hh_caste ///
-		      1.icds_treatment#2.hh_caste 1.icds_treatment#1.hh_economic_status) /// Keep only the specified terms in the table
-		      varlabels(1.icds_treatment "Received ICDS intervention (Treatment)" /// Add labels to terms
-	                    1.icds_treatment#1.child_sex "Treatment x Child's Sex = Female" ///
-					    1.icds_treatment#1.school_type "Treatment x School Type = Public" ///
-					    1.icds_treatment#2.school_type "Treatment x School Type = Private" ///
-					    1.icds_treatment#0.hh_urban "Treatment x Household Residence = Rural" ///
-					    1.icds_treatment#1.hh_caste "Treatment x Household Caste = Forward" ///
-					    1.icds_treatment#2.hh_caste "Treatment x Household Caste = Backward" ///
-					    1.icds_treatment#1.hh_economic_status "Treatment x Household Economic Status = Low") ///
-		       stats(blank N r2, fmt(%9.0g %9.4f) /// Add additional statistics and labels
-		       labels(\hline "Number of Observations" "R-squared")) /// 
-               postfoot("\bottomrule \end{tabular} ") // Add footer at the bottom of the table and close the table
+		   1.icds_treatment#2.school_type 1.icds_treatment#0.hh_urban 1.icds_treatment#1.hh_caste ///
+		   1.icds_treatment#2.hh_caste 1.icds_treatment#1.hh_economic_status) /// Keep only the specified terms in the table
+	       varlabels(1.icds_treatment "Received ICDS intervention (Treatment)" /// Add labels to terms
+	                 1.icds_treatment#1.child_sex "Treatment x Child's Sex = Female" ///
+			 1.icds_treatment#1.school_type "Treatment x School Type = Public" ///
+			 1.icds_treatment#2.school_type "Treatment x School Type = Private" ///
+			 1.icds_treatment#0.hh_urban "Treatment x Household Residence = Rural" ///
+			 1.icds_treatment#1.hh_caste "Treatment x Household Caste = Forward" ///
+			 1.icds_treatment#2.hh_caste "Treatment x Household Caste = Backward" ///
+			 1.icds_treatment#1.hh_economic_status "Treatment x Household Economic Status = Low") ///
+		stats(blank N r2, fmt(%9.0g %9.4f) /// Add additional statistics and labels
+		labels(\hline "Number of Observations" "R-squared")) /// 
+                postfoot("\bottomrule \end{tabular} ") // Add footer at the bottom of the table and close the table
 
 		   
 ********************************************************************************
@@ -707,10 +723,10 @@ use         "$data/merged_cleaned_dataset.dta", clear
 
 /*
 Note: Most the of variables used in this data are either binary or categorical variables
-for which heterogenous treatment effects were calculated. Household consumption 
-expenditure is a continuous varibale in the data that serves as an important indicator of 
-child's household's economic status. To examine the variation in treatment effect more 
-closely, the following quantile-based plots are created. 
+for which heterogenous treatment effects were calculated. Household consumption expenditure is 
+a continuous varibale in the data that serves as an important indicator of child's household's 
+economic status. To examine the variation in treatment effect more closely, the following 
+quantile-based plots are created. 
 */
 
 * Define global controls excluding log_hh_expend
@@ -745,11 +761,11 @@ foreach outcome in `outcomes' {
 * Create a new dataset to store coefficients and standard errors for plotting
 clear
 set          obs 5
-gen          quintile = _n
-gen          coef_reading = .
-gen          se_reading = .
-gen          coef_math = .
-gen          se_math = .
+gen          quintile = _n       // Variable for quintiles
+gen          coef_reading = .    // Variable for Reading Score coefficients
+gen          se_reading = .     // Variable for Reading Score standard errors
+gen          coef_math = .      // Variable for Math Score coefficients
+gen          se_math = .        // Variable for Math Score standard errors
 
 * Assign coefficients and standard errors from the matrices
 forval quintile = 1/5 {
@@ -757,7 +773,7 @@ forval quintile = 1/5 {
              replace se_reading = se_m[`quintiles', 1] in `quintiles'
              replace coef_math = coef_m[`quintiles', 2] in `quintiles'
              replace se_math = se_m[`quintiles', 2] in `quintiles'
-}
+} // End of loop
 
 * Calculate lower and upper bounds for the error bars
 gen          l_coef_reading = coef_reading - se_reading
@@ -774,7 +790,7 @@ twoway      (scatter coef_reading quintile, msymbol(O) mcolor(red)) /// Add scat
             yline(0, lpattern(dash) lcolor(black))  /// Add a vertical dashed line 
             title("Variation in Treatment Effect for Standardized Reading Score", size(4)) /// Add plot title 
             xtitle("Household Consumption Expenditure Quintiles") ytitle("Coefficient") /// Add x and y axis labels 
-	        legend(off) /// Remove legend 
+	    legend(off) /// Remove legend 
             scale(0.8) // Adjust scale
 	   
 * Save the plot in Stata to access it later			 
@@ -788,7 +804,7 @@ twoway     (scatter coef_math quintile, msymbol(O) mcolor(red)) /// Add scatter 
            yline(0, lpattern(dash) lcolor(black))  /// Add a vertical dashed line 
            title("Variation in Treatment Effect for Standardized Math Score", size(4)) /// Add plot title 
            xtitle("Household Consumption Expenditure Quantiles") ytitle("Coefficient") /// Add x and y axis labels
-	       legend(off) /// Remove legend 
+	   legend(off) /// Remove legend 
            scale(0.8) // Adjust scale
 	   
 * Save the plot in Stata to access it later			 
