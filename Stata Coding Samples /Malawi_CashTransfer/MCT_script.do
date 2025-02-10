@@ -237,7 +237,12 @@ label    values gender_num gender_label
 br       id gender_string gender_cleaned if (gender_num == .)
 
 /*
-NOTE: There are 223 observations with missing values in gender_num and these are missing either because they were missing in the original gender_string variable or because the mode function used to created gender_cleaned variable could not pick one value. In the latter case, this is mainly because there are an equal number of male/female values within an ID. For instance, for ID = 1735, there three males and three females recorded under the original gender_string variable so the mode function could not pick one value.  
+NOTE: There are 223 observations with missing values in gender_num and these are missing either 
+because they were missing in the original gender_string variable or because the mode function used 
+to created gender_cleaned variable could not pick one value. In the latter case, this is mainly because 
+there are an equal number of male/female values within an ID. For instance, for ID = 1735, there three 
+males and three females recorded under the original gender_string variable so the mode function could 
+not pick one value.  
 */
 
 * Drop redundant variables
@@ -574,22 +579,22 @@ estimates  store spending_model
 
 * Output LaTeX table with results for Household Consumption and Household Spending
 esttab     consumption_model spending_model using "$tables/reg_results.tex", replace ///
- 	       star(* 0.10 ** 0.05 *** 0.01) /// Add signficance stars to coefficients
+ 	   star(* 0.10 ** 0.05 *** 0.01) /// Add signficance stars to coefficients
            prehead(" \begin{tabular}{l c c} \toprule & \specialcell{Log Household Consumption} & \specialcell{Log Household Spending} \\\midrule") /// Customize table header in Latex 
-		   mtitles("(1)" "(2)") /// Add titles for model columns 
-	       fragment nonumbers nolines noobs label /// Adjust specifications to customize table 
+	   mtitles("(1)" "(2)") /// Add titles for model columns 
+	   fragment nonumbers nolines noobs label /// Adjust specifications to customize table 
            cells(b(fmt(3) star) se(par fmt(3) )) /// Format coefficients and standard errors with 3 decimal places
-		   collabels(none) /// 
+	   collabels(none) /// 
            keep(1.period_0_2_months 1.period_2_3_months 1.period_4_5_months 1.period_6_7_months ///
-	            1.period_8_9_months 1.period_9_10_months) /// Keep only the specified terms in the table
-	       varlabels(1.period_0_2_months "0-2 months post cash transfer" /// Add labels to terms
-	                 1.period_2_3_months "2-3 months post cash transfer" ///
-	       		     1.period_4_5_months "4-5 months post cash transfer" ///
-	       		     1.period_6_7_months "6-7 months post cash transfer" ///
-	       		     1.period_8_9_months "8-9 months post cash transfer" ///
-	       		     1.period_9_10_months "9-10 months post cash transfer") ///
-		   stats(blank N r2, fmt(%9.0g %9.2f) labels(\hline "Number of observations" "R-squared")) /// Add additional statistics and labels
-           postfoot("\bottomrule \end{tabular} ") // Add footer at the bottom of the table and close the table
+	        1.period_8_9_months 1.period_9_10_months) /// Keep only the specified terms in the table
+	   varlabels(1.period_0_2_months "0-2 months post cash transfer" /// Add labels to terms
+	             1.period_2_3_months "2-3 months post cash transfer" ///
+	       	     1.period_4_5_months "4-5 months post cash transfer" ///
+	       	     1.period_6_7_months "6-7 months post cash transfer" ///
+	       	     1.period_8_9_months "8-9 months post cash transfer" ///
+	       	     1.period_9_10_months "9-10 months post cash transfer") ///
+	    stats(blank N r2, fmt(%9.0g %9.2f) labels(\hline "Number of observations" "R-squared")) /// Add additional statistics and labels
+            postfoot("\bottomrule \end{tabular} ") // Add footer at the bottom of the table and close the table
 		   	 
 
 			 
@@ -670,10 +675,10 @@ forvalues i = 1/2 {
 twoway       (line coefficient_cons period, sort), ///
              title("Impulse Response Function for Log Household Consumption", size(6)) /// Add title
              ylabel(, grid) xlabel(, valuelabel) /// Adjust x and y labels
-			 ytitle("Coefficient Estimate", size(5)) /// Label y axis
+	     ytitle("Coefficient Estimate", size(5)) /// Label y axis
              xtitle("Time Period After Cash Transfer", size(5)) /// Label x axis
-			 legend(off) /// Remove legend
-	         scale(0.6) // Adjust scale of plot			 
+	     legend(off) /// Remove legend
+	     scale(0.6) // Adjust scale of plot			 
 			 		 
 			 
 * Save the plot in Stata to access it later			 
@@ -687,10 +692,10 @@ graph        export "$plots/irf_consumption_plot.png", replace width(1200) heigh
 twoway       (line coefficient_spend period, sort), ///
              title("Impulse Response Function for Log Household Spending", size(6)) /// Add title
              ylabel(, grid) xlabel(, valuelabel) /// Adjust x and y labels
-			 ytitle("Coefficient Estimate", size(5)) /// Label y axis
+	     ytitle("Coefficient Estimate", size(5)) /// Label y axis
              xtitle("Time Period After Cash Transfer", size(5)) /// Label x axis
-			 legend(off) /// Remove legend
-	         scale(0.6) // Adjust scale of plot			 
+	     legend(off) /// Remove legend
+	     scale(0.6) // Adjust scale of plot			 
 			 		 
 * Save the plot in Stata to access it later			 
 graph       save irf_spending_plot.gph, replace
